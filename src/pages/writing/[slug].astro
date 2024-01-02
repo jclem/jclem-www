@@ -22,7 +22,7 @@ const { Content } = await post.render();
 <Site title={post.data.title} description={post.data.summary}>
   {post.data.hasMath && (
     <script>
-        window.MathJax = {
+        (window as any).MathJax = {
             svg: {
                 scale: 0.9,
                 minScale: 0.5,
