@@ -21,17 +21,16 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
   title="Writing Archive"
   description="A collection of articles and blog posts by Jonathan Clem"
 >
-  <div class="flex flex-col items-start gap-8">
-    <nav class="w-full font-mono">
-      <ul class="flex justify-between">
+  <div class="container">
+    <nav>
+      <ul>
         <li>
-          <a href="/" class="text-inherit no-underline">
-            <div class="flex items-center gap-2">
+          <a href="/">
+            <div class="home-link">
               <span>←️</span>
               <img
                 src="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-1024.webp"
                 alt="Photograph of Jonathan Clem"
-                class="rounded-full h-4 w-4"
               />
               <span>Jonathan Clem</span>
             </div>
@@ -40,8 +39,8 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
       </ul>
     </nav>
 
-    <main class="w-full">
-      <div class="flex flex-col gap-3">
+    <main>
+      <div>
         <h1>Writing Archive</h1>
 
         <ul
@@ -49,14 +48,10 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
         >
           {
             posts.map((post) => (
-              <li class="flex flex-col divide-y divide-dashed divide-border">
-                <a href={`/writing/${post.slug}`} class="p-1">
-                  {post.data.title}
-                </a>
-                <time
-                  datetime={post.data.publishedAt!.toISOString()}
-                  class="p-1"
-                >
+              <li>
+                <a href={`/writing/${post.slug}`}>{post.data.title}</a>
+
+                <time datetime={post.data.publishedAt!.toISOString()}>
                   {dateFormat.format(post.data.publishedAt)}
                 </time>
               </li>
@@ -66,4 +61,44 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
       </div>
     </main>
   </div>
+
+  <style>
+    main > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    main > div > ul {
+      width: 100%;
+
+      border-width: 1px;
+      border-color: var(--color-border);
+
+      font-family: var(--font-mono);
+      font-size: var(--text-sm-size);
+      line-height: var(--text-sm-line);
+
+      li {
+        display: flex;
+        flex-direction: column;
+
+        &:not(:first-child) {
+          border-top-width: 1px;
+          border-color: var(--color-border);
+        }
+
+        > *:not(:first-child) {
+          border-top-width: 1px;
+          border-color: var(--color-border);
+          border-style: dashed;
+        }
+
+        > a,
+        > time {
+          padding: 0.25rem;
+        }
+      }
+    }
+  </style>
 </Site>

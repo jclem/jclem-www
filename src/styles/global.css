@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "./preflight.css";
 
 @font-face {
   font-family: "Berkeley Mono";
@@ -8,94 +6,318 @@
     format("woff2");
 }
 
-@layer base {
-  :root {
-    --color-border: theme("colors.zinc.400");
-    --color-canvas: theme("colors.white");
-    --color-card: theme("colors.zinc.50");
-    --color-card-text: theme("colors.zinc.800");
-    --color-text: theme("colors.zinc.800");
-    --color-text-deemphasize: theme("colors.zinc.500");
-    --color-code-bg: theme("colors.zinc.200");
-    --color-highlight: theme("colors.emerald.700");
-  }
+:root {
+  --color-emerald-500: #10b981;
+  --color-emerald-700: #047857;
+  --color-white: #fff;
+  --color-zinc-50: #fafafa;
+  --color-zinc-100: #f4f4f5;
+  --color-zinc-200: #e4e4e7;
+  --color-zinc-400: #a1a1aa;
+  --color-zinc-500: #71717a;
+  --color-zinc-700: #3f3f46;
+  --color-zinc-800: #27272a;
+  --color-zinc-900: #18181b;
+  --color-border: var(--color-zinc-400);
+  --color-canvas: var(--color-white);
+  --color-card: var(--color-zinc-50);
+  --color-card-text: var(--color-zinc-800);
+  --color-text: var(--color-zinc-800);
+  --color-text-deemphasize: var(--color-zinc-500);
+  --color-code-bg: var(--color-zinc-200);
+  --color-highlight: var(--color-emerald-700);
+
+  --box-sm: 640px;
+  --box-3xl: 48rem;
+
+  --font-sans: "Hanken Grotesk", sans-serif;
+  --font-mono: "Berkeley Mono", monospace;
+
+  --text-xs-size: 0.75rem;
+  --text-xs-line: 1rem;
+  --text-sm-size: 0.875rem;
+  --text-sm-line: 1.25rem;
+  --text-base-size: 1rem;
+  --text-base-line: 1.5rem;
+  --text-lg-size: 1.125rem;
+  --text-lg-line: 1.75rem;
+  --text-xl-size: 1.25rem;
+  --text-xl-line: 1.75rem;
+  --text-2xl-size: 1.5rem;
+  --text-2xl-line: 2rem;
 
   @media (prefers-color-scheme: dark) {
-    :root {
-      --color-border: theme("colors.zinc.500");
-      --color-canvas: theme("colors.zinc.800");
-      --color-card: theme("colors.zinc.700");
-      --color-card-text: theme("colors.zinc.100");
-      --color-text: theme("colors.zinc.100");
-      --color-text-deemphasize: theme("colors.zinc.400");
-      --color-code-bg: theme("colors.zinc.900");
-      --color-highlight: theme("colors.emerald.500");
+    & {
+      --color-border: var(--color-zinc-500);
+      --color-canvas: var(--color-zinc-800);
+      --color-card: var(--color-zinc-700);
+      --color-card-text: var(--color-zinc-100);
+      --color-text: var(--color-zinc-100);
+      --color-text-deemphasize: var(--color-zinc-400);
+      --color-code-bg: var(--color-zinc-900);
+      --color-highlight: var(--color-emerald-500);
     }
-  }
-
-  html,
-  body {
-    @apply bg-canvas;
-  }
-
-  body {
-    @apply mx-auto max-w-3xl w-full p-4 sm:p-8 flex flex-col gap-8;
-    @apply bg-canvas;
-    @apply font-sans text-text antialiased;
-  }
-
-  body a {
-    @apply text-highlight underline underline-offset-2;
-  }
-
-  dl {
-    @apply grid font-mono text-sm sm:text-xs;
-    grid-template-columns: 1fr 4fr;
-  }
-
-  dl dt,
-  dl dd {
-    @apply border border-b-0 border-border p-1 last-of-type:border-b;
-  }
-
-  dl dt {
-    @apply font-bold;
-  }
-
-  dl dd {
-    @apply border-l-0;
   }
 }
 
-@layer components {
-  .img-figure,
-  .vid-figure {
-    @apply flex flex-col gap-2;
+html,
+body {
+  background-color: var(--color-canvas);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: var(--box-3xl);
+  width: 100%;
+
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (min-width: 640px) {
+    & {
+      padding: 2rem;
+    }
+  }
+}
+
+a {
+  color: var(--color-highlight);
+  text-decoration-line: underline;
+  text-underline-offset: 2px;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+
+  font-family: var(--font-mono);
+  font-size: var(--text-sm-size);
+  line-height: var(--text-sm-line);
+
+  @media (min-width: 640px) {
+    & {
+      font-size: var(--text-xs-size);
+      line-height: var(--text-xs-line);
+    }
   }
 
-  .img-figure figcaption,
-  .vid-figure figcaption {
-    @apply text-sm text-text-deemphasize text-center italic;
+  dt,
+  dd {
+    padding: 0.25rem;
+
+    border-width: 1px;
+    border-bottom-width: 0;
+    border-color: var(--color-border);
+
+    &:last-of-type {
+      border-bottom-width: 1px;
+    }
   }
 
-  .vid-figure video {
-    @apply w-full;
+  dt {
+    font-weight: 700;
   }
 
-  .footnote {
-    @apply text-xs align-super;
+  dd {
+    border-left-width: 0;
+  }
+}
+
+article {
+  max-width: 42rem;
+}
+
+article,
+article > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  hyphens: auto;
+}
+
+article > h1,
+article > h2,
+article > h3,
+article > h4,
+article > h5,
+article > h6 {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+article > h2,
+article > h3,
+article > h4,
+article > h5,
+article > h6 {
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+}
+
+article > h1 {
+  margin-bottom: 1rem;
+
+  font-size: var(--text-2xl-size);
+  line-height: var(--text-2xl-line);
+}
+
+article > h2 {
+  font-size: var(--text-xl-size);
+  line-height: var(--text-xl-line);
+}
+
+article > h3 {
+  font-size: var(--text-lg-size);
+  line-height: var(--text-lg-line);
+}
+
+article > ul,
+article > ol {
+  margin-left: 1rem;
+
+  @media (min-width: 640px) {
+    & {
+      margin-left: 0;
+    }
+  }
+}
+
+article ul {
+  list-style-type: disc;
+}
+
+article ol {
+  list-style-type: decimal;
+}
+
+article li::marker {
+  color: var(--color-text-deemphasize);
+}
+
+article hr {
+  border-color: var(--color-border);
+}
+
+article > :not(pre) > code {
+  background-color: var(--color-code-bg);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm-size);
+  line-height: var(--text-sm-line);
+}
+
+article mjx-container[jax="SVG"][display="true"] {
+  display: flex;
+  justify-content: center;
+}
+
+article mjx-container[jax="SVG"]:not([display="true"]) svg {
+  display: inline;
+}
+
+article blockquote {
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+
+  border-left-width: 1px;
+  border-color: var(--color-border);
+
+  color: var(--color-text-deemphasize);
+  font-size: var(--text-sm-size);
+  line-height: var(--text-sm-line);
+
+  @media (min-width: 640px) {
+    & {
+      padding-left: 1.5rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+.img-figure,
+.vid-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.img-figure figcaption,
+.vid-figure figcaption {
+  font-size: var(--text-sm-size);
+  line-height: var(--text-sm-line);
+  color: var(--color-text-deemphasize);
+  text-align: center;
+  font-style: italic;
+}
+
+.vid-figure video {
+  width: 100%;
+}
+
+.footnote {
+  font-size: var(--text-xs-size);
+  line-height: var(--text-xs-line);
+  vertical-align: super;
+}
+
+.footnotes > ol {
+  margin-top: 0.5rem;
+  font-size: var(--text-sm-size);
+  line-height: var(--text-sm-line);
+  color: var(--color-text-deemphasize);
+}
+
+.footnotes > ol > li {
+  position: relative;
+}
+
+.reversefootnote {
+  margin-left: 0.25rem;
+  font-size: var(--text-xs-size);
+  line-height: var(--text-xs-line);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 2rem;
+
+  nav {
+    width: 100%;
+
+    font-family: var(--font-mono);
+
+    ul {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-line: none;
+    }
+
+    .home-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      img {
+        border-radius: 9999px;
+        width: 1rem;
+        height: 1rem;
+      }
+    }
   }
 
-  .footnotes > ol {
-    @apply mt-2;
-    @apply text-sm text-text-deemphasize;
-  }
-
-  .footnotes > ol > li {
-    @apply relative;
-  }
-
-  .reversefootnote {
-    @apply ml-1 text-xs;
+  main {
+    width: 100%;
   }
 }

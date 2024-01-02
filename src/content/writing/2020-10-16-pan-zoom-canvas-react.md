@@ -21,7 +21,7 @@ summary: >-
   for this post is not on GitHub. Feel free to use the code in this post under
   the MIT license:</summary>
 
-  <article class="mt-2 text-xs font-mono">
+  <article>
     Copyright (c) 2020 Jonathan Clem
 
     Permission is hereby granted, free of charge, to any person obtaining a
@@ -606,3 +606,12 @@ can be added to this canvas by command-clicking at the desired position.
 Thanks for reading!
 
 [^1]: You may be wondering why I'm manually attaching the `wheel` event instead of using a React `onWheel` listener. React has some surpising behavior and [some bugs](https://github.com/facebook/react/issues/14856) related to how it handles wheel events on components, so I am avoiding them by manually attaching an event listener. In this case I'm using a convenience hook called `useEventListener` that is just responsible for manually setting up and tearing down an event listener on a DOM node attached to the given ref.
+
+<style>
+  details article {
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs-size);
+    line-height: var(--text-xs-line);
+  }
+</style>

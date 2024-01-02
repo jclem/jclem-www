@@ -1,5 +1,4 @@
 ---
-import Article from "../components/Article.astro";
 import Site from "../layouts/Site.astro";
 ---
 
@@ -7,13 +6,12 @@ import Site from "../layouts/Site.astro";
   title="Jonathan Clem"
   description="Jonathan Clem is a Brooklyn, New York-based principal software engineer at GitHub."
 >
-  <main class="flex flex-col gap-6">
-    <header class="flex flex-col gap-6">
-      <div class="flex items-center gap-4">
+  <main>
+    <header>
+      <div>
         <img
           src="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-1024.webp"
           alt="Photograph of Jonathan Clem"
-          class="rounded-full h-12 w-12"
         />
         <h1>Jonathan Clem</h1>
       </div>
@@ -65,7 +63,7 @@ import Site from "../layouts/Site.astro";
       </dl>
     </header>
 
-    <Article>
+    <article>
       <p>
         Hello, I’m Jonathan. I live in Brooklyn, New York with my wonderful
         wife,
@@ -116,6 +114,27 @@ import Site from "../layouts/Site.astro";
           href="/writing">writing archive</a
         >.
       </p>
-    </Article>
+    </article>
   </main>
+
+  <style>
+    main,
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    header > div {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      img {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 9999px;
+      }
+    }
+  </style>
 </Site>

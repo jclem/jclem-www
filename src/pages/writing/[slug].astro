@@ -1,6 +1,5 @@
 ---
 import type { GetStaticPaths } from "astro";
-import Article from "../../components/Article.astro";
 import { getPublishedWriting } from "../../content/config";
 import Site from "../../layouts/Site.astro";
 
@@ -17,12 +16,23 @@ export const getStaticPaths = (async () => {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+
+declare global {
+  interface Window {
+    MathJax?: {
+      svg: {
+        scale: number;
+        minScale: number;
+      }
+    }
+  }
+}
 ---
 
 <Site title={post.data.title} description={post.data.summary}>
   {post.data.hasMath && (
     <script>
-        (window as any).MathJax = {
+        window.MathJax = {
             svg: {
                 scale: 0.9,
                 minScale: 0.5,
@@ -30,41 +40,34 @@ const { Content } = await post.render();
         }
     </script>
 
-    <script
-        id="MathJax-script"
-        async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.min.js"
-    ></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.min.js"></script>
   )}
-  <div class="flex flex-col items-start gap-8">
-    <nav class="w-full font-mono">
-      <ul class="flex justify-between">
+  <div class="container">
+    <nav>
+      <ul>
         <li>
-          <a href="/writing" class="text-inherit no-underline">
+          <a href="/writing">
             ← Writing Archive
           </a>
         </li>
 
         <li>
-          <a href="/" class="text-inherit no-underline">
-            <div class="flex items-center gap-2">
-              <img
-                src="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-1024.webp"
-                alt="Photograph of Jonathan Clem"
-                class="rounded-full h-4 w-4"
-              />
-              <span>Jonathan Clem</span>
-            </div>
+          <a href="/" class="home-link">
+            <img
+              src="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-1024.webp"
+              alt="Photograph of Jonathan Clem"
+            />
+            <span>Jonathan Clem</span>
           </a>
         </li>
       </ul>
     </nav>
 
-    <main class="w-full">
-      <Article>
+    <main>
+      <article>
         <h1>{post.data.title}</h1>
         <Content />
-      </Article>
+      </article>
     </main>
   </div>
 </Site>
