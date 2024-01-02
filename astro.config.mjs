@@ -13,7 +13,9 @@ export default defineConfig({
     rehypePlugins: [[rehypeFigure, { className: "img-figure" }]]
   },
   adapter: vercel(),
-  site: process.env.NODE_ENV === 'production'
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:4321'
+  site: process.env.VERCEL_ENV === 'production'
+    ? `https://jclem.me`
+    : process.env.VERCEL_ENV === 'preview'
+      ? `https://${process.env.VERCEL_URL}`
+      : 'http://localhost:4321'
 });
