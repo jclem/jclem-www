@@ -54,6 +54,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-apple-touch-icon.png"
     />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="RSS Feed"
+      href="/rss.xml"
+    />
     <meta name="generator" content={Astro.generator} />
     <title>Jonathan Clem · {title}</title>
   </head>
