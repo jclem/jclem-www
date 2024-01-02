@@ -1,4 +1,4 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, getCollection, z } from "astro:content";
 
 const writing = defineCollection({
   type: "content",
@@ -14,3 +14,7 @@ const writing = defineCollection({
 export const collections = {
   writing: writing,
 };
+
+export const getPublishedWriting = () => getCollection('writing', ({ data }) =>
+  data.published && data.publishedAt != null
+)

@@ -1,13 +1,11 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { getCollection } from "astro:content";
 import Article from "../../components/Article.astro";
+import { getPublishedWriting } from "../../content/config";
 import Site from "../../layouts/Site.astro";
 
 export const getStaticPaths = (async () => {
-  const posts = await getCollection("writing", ({ data }) => {
-    return data.published && data.publishedAt != null;
-  });
+  const posts = await getPublishedWriting();
 
   return posts.map((post) => {
     return {

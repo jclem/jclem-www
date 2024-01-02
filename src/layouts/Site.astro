@@ -2,6 +2,7 @@
 import "@fontsource/hanken-grotesk";
 
 const { title } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
@@ -52,6 +53,7 @@ const { title } = Astro.props;
       rel="apple-touch-icon"
       href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-apple-touch-icon.png"
     />
+    <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
     <title>Jonathan Clem · {title}</title>
   </head>
