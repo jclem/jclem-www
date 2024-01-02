@@ -47,6 +47,24 @@
   body a {
     @apply text-highlight underline underline-offset-2;
   }
+
+  dl {
+    @apply grid font-mono text-sm sm:text-xs;
+    grid-template-columns: 1fr 4fr;
+  }
+
+  dl dt,
+  dl dd {
+    @apply border border-b-0 border-border p-1 last-of-type:border-b;
+  }
+
+  dl dt {
+    @apply font-bold;
+  }
+
+  dl dd {
+    @apply border-l-0;
+  }
 }
 
 @layer components {
