@@ -3,6 +3,9 @@
     "source.organizeImports": "explicit"
   },
   "editor.formatOnSave": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
   "files.exclude": {
     ".astro": true,
     ".vercel": true,
