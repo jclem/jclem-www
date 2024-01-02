@@ -1,7 +1,7 @@
 ---
 import "@fontsource/hanken-grotesk";
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -9,10 +9,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content="Jonathan Clem is a Brooklyn, New York-based principal software engineer at GitHub."
-    />
+    <meta name="description" content={description} />
     <link
       rel="icon"
       sizes="16x16"
@@ -62,7 +59,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       href="/rss.xml"
     />
     <meta name="generator" content={Astro.generator} />
-    <title>Jonathan Clem · {title}</title>
+    <title>{title} · jclem.me</title>
   </head>
 
   <body>
