@@ -69,7 +69,7 @@ any way.
 
 Here's a simplified explanation of what I wanted in code:
 
-```tsx
+```tsx title="CanvasState.ts"
 export type CanvasState {
   // The pan state
   offset: {x: number, y: number}
@@ -80,9 +80,7 @@ export type CanvasState {
 export const CanvasContext = React.createContext<CanvasState>({} as any)
 ```
 
----
-
-```tsx
+```tsx title="Component.tsx"
 function SomeCanvasComponent() {
   const { state } = useContext(CanvasContext);
   return <div>The desired user zoom level is {state.scale}.</div>;
@@ -115,7 +113,7 @@ to stop just because the user's mouse happened to leave the bounding element.
 Here is the `usePan` hook (note that you'll see the `Point` type and `ORIGIN`
 constant referenced in other places in this blog post):
 
-```typescript
+```typescript title="usePan.ts"
 import {
   MouseEvent as SyntheticMouseEvent,
   useCallback,
@@ -184,7 +182,7 @@ Let's use the `usePan` hook in a simple example that will just show us how much
 we've panned around total. Note that in this and other examples, I'm omitting
 styling for clarity:
 
-```tsx
+```tsx title="UsePanExample.tsx"
 export const UsePanExample = () => {
   const [offset, startPan] = usePan();
 
@@ -211,7 +209,7 @@ doesn't actually _do_ any scaling or zooming. Instead, it listens on certain
 events and reports back what it thinks the user _intends_ for the current scale
 level to be.[^1]
 
-```typescript
+```typescript title="useScale.ts"
 import { RefObject, useState } from "react";
 import useEventListener from "./useEventListener";
 
@@ -267,7 +265,7 @@ export default function useScale(ref: RefObject<HTMLElement | null>) {
 
 Let's use the `useScale` hook in an example:
 
-```tsx
+```tsx title="UseScaleExample.tsx"
 export const UseScaleExample = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const scale = useScale(ref);
@@ -292,7 +290,7 @@ create the illusion of panning and scaling by manipulating the canvas's
 background offset for panning, and the canvas's scale for scaling, rather than
 actually trying to move the element itself around.
 
-```tsx
+```tsx title="UsePanScaleExample.tsx"
 export const UsePanScaleExample = () => {
   const [offset, startPan] = usePan();
   const ref = useRef<HTMLDivElement | null>(null);
@@ -337,7 +335,7 @@ the width of the bounding element divided by the current scale. The same holds
 true for for the vertical sides, only one would use the bounding element's
 height.
 
-```tsx
+```tsx title="BufferExample.tsx"
 export const BufferExample = () => {
   const [buffer, setBuffer] = useState(pointUtils.ORIGIN);
   const [offset, startPan] = usePan();
@@ -464,7 +462,7 @@ Rather than using our offset provided by `usePan`, we now use our new adjusted
 offset, which maintains our pan offset relative to the user's mouse position as
 they zoom in and out.
 
-```tsx
+```tsx title="TrackingExample.tsx"
 export const TrackingExample = () => {
   const [buffer, setBuffer] = useState(pointUtils.ORIGIN);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -549,7 +547,7 @@ code, as well.
 Now, I was ready to wrap this component up into a context. Thankfully, that was
 pretty easy!
 
-```tsx
+```tsx title="CanvasProvider.tsx"
 export type CanvasState {
   offset: Point
   buffer: Point
@@ -579,7 +577,7 @@ export default function CanvasProvider(props: PropsWithChildren<unknown>) {
 
 And to consume the context to get the grid effect in the prior example:
 
-```tsx
+```tsx title="GridBackground.tsx"
 export default function GridBackground() {
   const { offset, buffer, scale } = useContext(CanvasContext);
 

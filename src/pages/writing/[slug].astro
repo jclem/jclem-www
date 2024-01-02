@@ -20,6 +20,22 @@ const { Content } = await post.render();
 ---
 
 <Site title={post.data.title} description={post.data.summary}>
+  {post.data.hasMath && (
+    <script>
+        window.MathJax = {
+            svg: {
+                scale: 0.9,
+                minScale: 0.5,
+            }
+        }
+    </script>
+
+    <script
+        id="MathJax-script"
+        async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.min.js"
+    ></script>
+  )}
   <div class="flex flex-col items-start gap-8">
     <nav class="w-full font-mono">
       <ul class="flex justify-between">
