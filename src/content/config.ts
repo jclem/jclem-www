@@ -15,6 +15,8 @@ export const collections = {
   writing: writing,
 };
 
-export const getPublishedWriting = () => getCollection('writing', ({ data }) =>
-  data.published && data.publishedAt != null
-)
+export const getPublishedWriting = () =>
+  getCollection(
+    "writing",
+    ({ data }) => data.published && data.publishedAt != null,
+  );
