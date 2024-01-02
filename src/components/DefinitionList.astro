@@ -1,0 +1,22 @@
+<dl>
+  <slot />
+  <style>
+    dl {
+      @apply grid font-mono text-sm sm:text-xs;
+      grid-template-columns: 1fr 4fr;
+    }
+
+    dl :global(dt),
+    dl :global(dd) {
+      @apply border border-b-0 border-border p-1 last-of-type:border-b;
+    }
+
+    dl :global(dt) {
+      @apply font-bold;
+    }
+
+    dl :global(dd) {
+      @apply border-l-0;
+    }
+  </style>
+</dl>

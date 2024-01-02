@@ -1,0 +1,109 @@
+---
+import "@fontsource/hanken-grotesk";
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Jonathan Clem is a Brooklyn, New York-based principal software engineer at GitHub."
+    />
+    <link
+      rel="icon"
+      sizes="16x16"
+      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-16.png"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      sizes="32x32"
+      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-32.png"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      sizes="64x64"
+      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-64.png"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      sizes="128x128"
+      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-128.png"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      sizes="256x256"
+      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-256.png"
+      type="image/png"
+    />
+    <link
+      rel="icon"
+      sizes="512x512"
+      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-512.png"
+      type="image/png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-apple-touch-icon.png"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>Jonathan Clem · {title}</title>
+  </head>
+
+  <body>
+    <slot />
+  </body>
+
+  <style>
+    @font-face {
+      font-family: "Berkeley Mono";
+      src: url("https://jclem.nyc3.cdn.digitaloceanspaces.com/fonts/BerkeleyMono-Regular.woff2")
+        format("woff2");
+    }
+
+    :root {
+      --color-border: theme("colors.zinc.400");
+      --color-canvas: theme("colors.white");
+      --color-card: theme("colors.zinc.50");
+      --color-card-text: theme("colors.zinc.800");
+      --color-text: theme("colors.zinc.800");
+      --color-text-deemphasize: theme("colors.zinc.500");
+      --color-code-bg: theme("colors.zinc.200");
+      --color-highlight: theme("colors.emerald.700");
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-border: theme("colors.zinc.500");
+        --color-canvas: theme("colors.zinc.800");
+        --color-card: theme("colors.zinc.700");
+        --color-card-text: theme("colors.zinc.100");
+        --color-text: theme("colors.zinc.100");
+        --color-text-deemphasize: theme("colors.zinc.400");
+        --color-code-bg: theme("colors.zinc.900");
+        --color-highlight: theme("colors.emerald.500");
+      }
+    }
+
+    html,
+    body {
+      @apply bg-canvas;
+    }
+
+    body {
+      @apply mx-auto max-w-3xl w-full p-4 sm:p-8 flex flex-col gap-8;
+      @apply bg-canvas;
+      @apply font-sans text-text antialiased;
+    }
+
+    body :global(a) {
+      @apply text-highlight underline underline-offset-2;
+    }
+  </style>
+</html>

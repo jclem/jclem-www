@@ -1,0 +1,66 @@
+---
+import { getCollection } from "astro:content";
+import Site from "../../layouts/Site.astro";
+
+const posts = await getCollection("writing", ({ data }) => {
+  return data.published && data.publishedAt != null;
+}).then((posts) => {
+  return posts.sort((a, b) => {
+    return b.data.publishedAt!.getTime() - a.data.publishedAt!.getTime();
+  });
+});
+
+const dateFormat = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Site>
+  <div class="flex flex-col items-start gap-8">
+    <nav class="w-full font-mono">
+      <ul class="flex justify-between">
+        <li>
+          <a href="/" class="text-inherit no-underline">
+            <div class="flex items-center gap-2">
+              <span>←️</span>
+              <img
+                src="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-1024.webp"
+                alt="Photograph of Jonathan Clem"
+                class="rounded-full h-4 w-4"
+              />
+              <span>Jonathan Clem</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="w-full">
+      <div class="flex flex-col gap-3">
+        <h1>Writing Archive</h1>
+
+        <ul
+          class="w-full border border-border divide-y divide-border font-mono text-sm"
+        >
+          {
+            posts.map((post) => (
+              <li class="flex flex-col divide-y divide-dashed divide-border">
+                <a href={`/writing/${post.slug}`} class="p-1">
+                  {post.data.title}
+                </a>
+                <time
+                  datetime={post.data.publishedAt!.toISOString()}
+                  class="p-1"
+                >
+                  {dateFormat.format(post.data.publishedAt)}
+                </time>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </main>
+  </div>
+</Site>
