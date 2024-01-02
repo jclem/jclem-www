@@ -12,7 +12,14 @@ export default defineConfig({
   markdown: {
     rehypePlugins: [[rehypeFigure, { className: "img-figure" }]]
   },
-  adapter: vercel(),
+  adapter: vercel({
+    speedInsights: {
+      enabled: true
+    },
+    webAnalytics: {
+      enabled: true
+    }
+  }),
   site: process.env.VERCEL_ENV === 'production'
     ? `https://jclem.me`
     : process.env.VERCEL_ENV === 'preview'
