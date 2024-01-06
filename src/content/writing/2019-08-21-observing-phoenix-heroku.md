@@ -52,7 +52,7 @@ and deploy it directly to Heroku.
 First, the application's Procfile needs to set a few options that allows us to
 easily make remote connections:
 
-```text
+```text title="Procfile"
 web: elixir --cookie $OTP_COOKIE --name server@127.0.0.1 --erl '-kernel inet_dist_listen_min 9000' --erl '-kernel inet_dist_listen_max 9000' -S mix phx.server
 ```
 

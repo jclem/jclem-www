@@ -78,7 +78,7 @@ I'm going to step through the actions one-by-one that the workflow uses.
 In order to use Siri to deploy this app, we're going to tell the workflow to
 trigger on the ["repository_dispatch"][repository_dispatch] event.
 
-```hcl
+```hcl title="workflow.hcl"
 workflow "Build & Release" {
   on = "repository_dispatch"
   resolves = "Container Release"
@@ -96,7 +96,7 @@ self-contained archive with everything necessary in order to run the app. If
 you're unfamiliar with OTP releases, you can [read more about them (and
 Distillery) on ElixirSchool][elixir_school_releases].
 
-```hcl
+```hcl title="workflow.hcl"
 action "Create Release" {
   uses = "./.github/mix"
   args = "do deps.get, compile, release"
@@ -119,7 +119,7 @@ script.
 After we've created the release, we need to log in to the Heroku container
 registry.
 
-```hcl
+```hcl title="workflow.hcl"
 action "Registry Login" {
   uses = "./.github/heroku"
   needs = "Create Release"
@@ -143,7 +143,7 @@ uses it for authentication.
 Now that we're logged into the Heroku container registry, we need to push our
 app to the registry.
 
-```hcl
+```hcl title="workflow.hcl"
 action "Container Push" {
   uses = "./.github/heroku"
   needs = "Registry Login"
@@ -161,7 +161,7 @@ then push it to the container registry for the "ping-ex" app's "web" dyno.
 Once the container is pushed, we want to actually release it so that it becomes
 the "active" container running for our app.
 
-```hcl
+```hcl title="workflow.hcl"
 action "Container Release" {
   uses = "./.github/heroku"
   needs = "Container Push"
@@ -182,7 +182,7 @@ the app. You can get the shortcut that I built for this [here][shortcut].
 The shortcut makes a POST request to the repository dispatch endpoint that looks
 like this:
 
-```curl
+```shell
 curl -X POST https://api.github.com/repos/$username/$repo/dispatches \
   -H "Accept: application/vnd.github.everest-preview+json" \
   -H "Content-Type: application/json" \

@@ -38,7 +38,11 @@ First, let's set up the basic application skeleton. We'll have an `App`
 component that renders a different page, depending on the current route.
 Sketched out roughly, it looks something like this:
 
-```jsx
+```jsx title="App.jsx"
+import Home from "./pages/Home";
+import About from "./pages/About";
+import NotFound from "./pages/NotFound";
+
 export default function App() {
   // Hand-wavy "get the current route state"
   const route = getRoute();
@@ -60,7 +64,7 @@ on that route.
 We also need some way of linking between these pages. For that, we'll create a
 `PageLink` component:
 
-```jsx
+```jsx title="PageLink.jsx"
 export default function PageLink(props) {
   return (
     <a
@@ -98,7 +102,7 @@ the Provider component is what will allow
 which we'll build later, to consume (and update) the routing state! First we'll
 create our Context object and our Provider component:
 
-```jsx
+```jsx title="RouterProvider.jsx"
 // Just create an empty context, we'll give it data later.
 export const RouterContext = React.createContext();
 
@@ -144,7 +148,7 @@ Now that we have the provider set up, we'll use it (and the consumer) in our
 application component to get the current route for rendering the proper page
 component:
 
-```jsx
+```jsx title="App.jsx" ins={1, 10-13, 22-24}
 import { RouterProvider, RouterContext } from "./router";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -181,7 +185,7 @@ Now, our `PageLink` component can also make use of the consumer in order to read
 and set the current route state! Let's also say, maybe, that we want `PageLink`
 to only wrap its children in an anchor tag if it's not already the active route.
 
-```jsx
+```jsx title="PageLink.jsx" ins={1, 4-6}
 import { RouterContext } from "./router";
 
 export default function PageLink(props) {
@@ -228,7 +232,7 @@ notifying us that the page's path has changed.
 We'll update our `RouterProvider` component to make sure we're reacting to those
 events:
 
-```jsx
+```jsx title="RouterProvider.jsx" ins={6-14}
 export const RouterContext = React.createContext();
 
 export function RouterProvider(props) {

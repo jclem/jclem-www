@@ -38,7 +38,7 @@ The [Dockerfile][mix_action_dockerfile] for the action is relatively
 straightforward. It is based on the "elixir" image, and makes just a couple of
 small changes:
 
-```dockerfile
+```dockerfile title="Dockerfile"
 FROM elixir
 
 # Set MIX_HOME outside of the user home directory.
@@ -69,7 +69,7 @@ local.rebar`.
 You'll also notice that rather than setting `ENTRYPOINT ["mix"]`, the action
 instead has an executable "entrypoint.sh" file, which we set as the entrypoint:
 
-```bash
+```shell title="entrypoint.sh"
 #!/bin/sh
 
 sh -c "mix $*"
@@ -80,7 +80,7 @@ variables in their `args`, the variables will be properly expanded. For example,
 an entrypoint ensures that an action such as the following will do what the user
 expects, and expand their `MY_SECRET` to its value when the action runs:
 
-```hcl
+```hcl title="workflow.hcl"
 action "Something Secret" {
   uses = "jclem/actions/mix@master"
   args = "use_secret $MY_SECRET"

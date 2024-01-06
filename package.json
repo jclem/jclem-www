@@ -15,6 +15,7 @@
     "@astrojs/rss": "^4.0.1",
     "@astrojs/sitemap": "^3.0.4",
     "@astrojs/vercel": "^6.1.0",
+    "@expressive-code/plugin-collapsible-sections": "^0.30.2",
     "@fontsource/hanken-grotesk": "^5.0.18",
     "@jclem/assert": "^2.0.1",
     "@microflash/rehype-figure": "^2.0.0",

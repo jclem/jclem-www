@@ -49,7 +49,7 @@ repository.
 Let's write a workflow that runs on `pull_request_target` and labels the PR
 according to a configuration file:
 
-```yaml
+```yaml title=".github/workflows/label.yml"
 on: pull_request_target
 
 jobs:

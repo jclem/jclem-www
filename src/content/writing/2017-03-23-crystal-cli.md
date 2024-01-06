@@ -50,7 +50,7 @@ I wanted to have the commonly seen sort of command line options where a user can
 pass a full option name or an alias. This was just as easy to do in Crystal as
 it is in Ruby:
 
-```crystal
+```crystal title="my_cli.cr"
 require "option_parser"
 
 class MyCLI
@@ -97,7 +97,7 @@ multiple different types for many values. For example, an entry in "env" can be
 either a string representing the default value of that environment variable or
 an object describing the environment variable, e.g.:
 
-```json
+```json title="app.json"
 {
   "env": {
     "NODE_ENV": "production",
@@ -113,7 +113,7 @@ _app.json_ file, parse it, and return a hash or raise if the root of the JSON
 document is not an object. This was relatively straightforward—I'll define a
 function called `parse_app_json_env` (we'll add the "env" parsing to it soon):
 
-```crystal
+```crystal title="bstrap/app_json.cr"
 class Bstrap::AppJSON
   class InvalidAppJSON < Exception
   end
@@ -154,17 +154,23 @@ return the parsed "env" object, not just the raw parsed _app.json_ file. I
 updated my `parse_app_json_env` to call a new method called `parse_env` that
 would take care of this:
 
-```crystal
-def parse_app_json_env(path : String)
-  raw_json = File.read(path)
-
-  if app_json = JSON.parse(raw_json).as_h?
-    parse_env(app_json)
-  else
-    raise InvalidAppJSON.new("app.json was file not an object")
+```diff lang="crystal" title="bstrap/app_json.cr"
+class Bstrap::AppJSON
+  class InvalidAppJSON < Exception
   end
-rescue JSON::ParseException
-  raise InvalidAppJSON.new("app.json was not valid JSON")
+
+  def parse_app_json_env(path : String)
+    raw_json = File.read(path)
+
+    if app_json = JSON.parse(raw_json).as_h?
+-      app_json
++      parse_env(app_json)
+    else
+      raise InvalidAppJSON.new("app.json was file not an object")
+    end
+  rescue JSON::ParseException
+    raise InvalidAppJSON.new("app.json was not valid JSON")
+  end
 end
 ```
 
@@ -174,44 +180,83 @@ the sake of programming ease, I wanted to ensure that this method was always
 returning a hash whose values were other hashes, regardless of what was parsed.
 To express this, I defined a couple of new type aliases:
 
-```crystal
-type JSONObject = Hash(String, JSON::Type)
-type ParsedEnv = Hash(String, JSONObject)
+```diff lang="crystal" title="bstrap/app_json.cr" collapse={9-18}
+class Bstrap::AppJSON
+  class InvalidAppJSON < Exception
+  end
+
++  alias JSONHash = Hash(String, JSON::Type)
++  alias ParsedEnv = Hash(String, JSONHash)
+
+  def parse_app_json_env(path : String)
+    raw_json = File.read(path)
+
+    if app_json = JSON.parse(raw_json).as_h?
+       app_json
+       parse_env(app_json)
+    else
+      raise InvalidAppJSON.new("app.json was file not an object")
+    end
+  rescue JSON::ParseException
+    raise InvalidAppJSON.new("app.json was not valid JSON")
+  end
+end
 ```
 
-I first defined `JSONObject` simply to refer to a hash whose keys are strings
+I first defined `JSONHash` simply to refer to a hash whose keys are strings
 and whose values are JSON types. I could have been more specific to the "env"
 format and created a type whose keys are strings and whose values are either
 strings or booleans (for the "required" key from the _app.json_ schema), but
 this didn't seem necessary.
 
 The `ParsedEnv` type refers to a hash whose keys are strings and whose values
-are `JSONObject`s.
+are `JSONHash`es.
 
 With these new types in hand, I could create the `parse_env` function that would
 read the "env" from an _app.json_ hash and return a `ParsedEnv`:
 
-```crystal
-private def parse_env(app_json : JSONHash) : ParsedEnv
-  parsed = ParsedEnv.new
-
-  case env = app_json.fetch("env", nil) # Ensure we have an "env"
-  when Hash
-    env.reduce(parsed) do |parsed, (key, value)|
-      case value
-      when String
-        parsed[key] = {"value" => value.as(JSON::Type)}
-      when Hash
-        parsed[key] = value
-      else
-        raise InvalidAppJSON.new(%(app.json "env" value was not a string or an object))
-      end
-    end
-  when nil
-    parsed
-  else
-    raise InvalidAppJSON.new(%(app.json "env" was not an object))
+```diff lang="crystal" title="bstrap/app_json.cr" collapse={9-18}
+class Bstrap::AppJSON
+  class InvalidAppJSON < Exception
   end
+
+  alias JSONHash = Hash(String, JSON::Type)
+  alias ParsedEnv = Hash(String, JSONHash)
+
+  def parse_app_json_env(path : String)
+    raw_json = File.read(path)
+
+    if app_json = JSON.parse(raw_json).as_h?
+       app_json
+       parse_env(app_json)
+    else
+      raise InvalidAppJSON.new("app.json was file not an object")
+    end
+  rescue JSON::ParseException
+    raise InvalidAppJSON.new("app.json was not valid JSON")
+  end
+
++  private def parse_env(app_json : JSONHash) : ParsedEnv
++    parsed = ParsedEnv.new
+
++    case env = app_json.fetch("env", nil) # Ensure we have an "env"
++    when Hash
++      env.reduce(parsed) do |parsed, (key, value)|
++        case value
++        when String
++          parsed[key] = {"value" => value.as(JSON::Type)}
++        when Hash
++          parsed[key] = value
++        else
++          raise InvalidAppJSON.new(%(app.json "env" value was not a string or an object))
++        end
++      end
++    when nil
++      parsed
++    else
++      raise InvalidAppJSON.new(%(app.json "env" was not an object))
++    end
++  end
 end
 ```
 
@@ -223,7 +268,7 @@ it's a string or a hash, and raise otherwise.
 
 The above example also introduces some of the things that are still mysteries to
 me about the Crystal type system: `ParsedEnv` is an alias for `Hash(String,
-JSONObject)`, and `JSONObject` is an alias for `Hash(String, JSON::Type)`.
+JSONHash)`, and `JSONHash` is an alias for `Hash(String, JSON::Type)`.
 `JSON::Type`, in turn, is an alias for a number of other types, including
 `String`. Why, then is it necessary for me to restrict the type of `value` to
 `JSON::Type` when the compiler already knows that it is a `String`?
@@ -231,7 +276,7 @@ JSONObject)`, and `JSONObject` is an alias for `Hash(String, JSON::Type)`.
 Another thing that wasn't apparent to me in the example above at first is that I
 could call `ParsedEnv.new`. If I were to declare `parsed = {}`, the compiler
 would complain that I should declare an empty hash in a way that includes the
-expected key-value types, e.g. `parsed = {} of String => JSONObject`. I have a
+expected key-value types, e.g. `parsed = {} of String => JSONHash`. I have a
 lot of these in bstrap, still, and didn't realize until someone told me that I
 could call `.new` on a type alias, instead, and get the same result.
 
