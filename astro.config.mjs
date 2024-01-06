@@ -27,9 +27,6 @@ export default defineConfig({
     rehypePlugins: [[rehypeFigure, { className: "img-figure" }]],
   },
   adapter: vercel({
-    speedInsights: {
-      enabled: true,
-    },
     webAnalytics: {
       enabled: true,
     },
