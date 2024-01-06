@@ -19,6 +19,7 @@
     "@fontsource/hanken-grotesk": "^5.0.18",
     "@jclem/assert": "^2.0.1",
     "@microflash/rehype-figure": "^2.0.0",
+    "@vercel/speed-insights": "^1.0.2",
     "astro": "^4.0.7",
     "astro-expressive-code": "^0.30.1"
   },

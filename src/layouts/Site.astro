@@ -1,6 +1,12 @@
 ---
 import "@fontsource/hanken-grotesk";
+import speedInsightsImport from "@vercel/speed-insights/astro";
+import type { JsxElement } from "typescript";
 import "../styles/global.css";
+
+// Bug in Vercel's speed-insights package types.
+const SpeedInsights =
+  speedInsightsImport as unknown as (props: {}) => JsxElement;
 
 const { title, description } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -65,5 +71,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
   <body>
     <slot />
+    <SpeedInsights />
   </body>
 </html>
