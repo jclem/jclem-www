@@ -10,6 +10,7 @@
   --color-emerald-500: #10b981;
   --color-emerald-700: #047857;
   --color-white: #fff;
+  --color-spring-wood: #f8f6ef;
   --color-zinc-50: #fafafa;
   --color-zinc-100: #f4f4f5;
   --color-zinc-200: #e4e4e7;
@@ -19,7 +20,7 @@
   --color-zinc-800: #27272a;
   --color-zinc-900: #18181b;
   --color-border: var(--color-zinc-400);
-  --color-canvas: var(--color-white);
+  --color-canvas: var(--color-spring-wood);
   --color-card: var(--color-zinc-50);
   --color-card-text: var(--color-zinc-800);
   --color-text: var(--color-zinc-800);
