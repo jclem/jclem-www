@@ -1,76 +1,69 @@
 ---
 import "@fontsource/hanken-grotesk";
-import speedInsightsImport from "@vercel/speed-insights/astro";
-import type { JsxElement } from "typescript";
 import "../styles/global.css";
-
-// Bug in Vercel's speed-insights package types.
-const SpeedInsights =
-  speedInsightsImport as unknown as (props: {}) => JsxElement;
 
 const { title, description } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
-    <link
-      rel="icon"
-      sizes="16x16"
-      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-16.png"
-      type="image/png"
-    />
-    <link
-      rel="icon"
-      sizes="32x32"
-      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-32.png"
-      type="image/png"
-    />
-    <link
-      rel="icon"
-      sizes="64x64"
-      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-64.png"
-      type="image/png"
-    />
-    <link
-      rel="icon"
-      sizes="128x128"
-      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-128.png"
-      type="image/png"
-    />
-    <link
-      rel="icon"
-      sizes="256x256"
-      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-256.png"
-      type="image/png"
-    />
-    <link
-      rel="icon"
-      sizes="512x512"
-      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-512.png"
-      type="image/png"
-    />
-    <link
-      rel="apple-touch-icon"
-      href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-apple-touch-icon.png"
-    />
-    <link rel="canonical" href={canonicalURL} />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="RSS Feed"
-      href="/rss.xml"
-    />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title} · jclem.me</title>
-  </head>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="description" content={description} />
+        <link
+            rel="icon"
+            sizes="16x16"
+            href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-16.png"
+            type="image/png"
+        />
+        <link
+            rel="icon"
+            sizes="32x32"
+            href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-32.png"
+            type="image/png"
+        />
+        <link
+            rel="icon"
+            sizes="64x64"
+            href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-64.png"
+            type="image/png"
+        />
+        <link
+            rel="icon"
+            sizes="128x128"
+            href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-128.png"
+            type="image/png"
+        />
+        <link
+            rel="icon"
+            sizes="256x256"
+            href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-256.png"
+            type="image/png"
+        />
+        <link
+            rel="icon"
+            sizes="512x512"
+            href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-512.png"
+            type="image/png"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="https://jclem.nyc3.cdn.digitaloceanspaces.com/profile/profile-apple-touch-icon.png"
+        />
+        <link rel="canonical" href={canonicalURL} />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="RSS Feed"
+            href="/rss.xml"
+        />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title} · jclem.me</title>
+    </head>
 
-  <body>
-    <slot />
-    <SpeedInsights />
-  </body>
+    <body>
+        <slot />
+    </body>
 </html>

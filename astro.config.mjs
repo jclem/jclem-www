@@ -1,5 +1,4 @@
 import sitemap from "@astrojs/sitemap";
-import vercel from "@astrojs/vercel/static";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import rehypeFigure from "@microflash/rehype-figure";
 import expressiveCode from "astro-expressive-code";
@@ -26,15 +25,5 @@ export default defineConfig({
   markdown: {
     rehypePlugins: [[rehypeFigure, { className: "img-figure" }]],
   },
-  adapter: vercel({
-    webAnalytics: {
-      enabled: true,
-    },
-  }),
-  site:
-    process.env.VERCEL_ENV === "production"
-      ? `https://jclem.me`
-      : process.env.VERCEL_ENV === "preview"
-        ? `https://${process.env.VERCEL_URL}`
-        : "http://localhost:4321",
+  site: "https://jclem.me",
 });
