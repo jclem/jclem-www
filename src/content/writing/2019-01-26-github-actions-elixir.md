@@ -106,7 +106,7 @@ to get a better view of the workflow.
 <figure class="vid-figure">
   <video controls>
     <source
-      src="https://jclem.nyc3.cdn.digitaloceanspaces.com/2019-01-26-github-actions-for-elixir/create-workflow.mp4"
+      src="https://assets.jclem.me/2019-01-26-github-actions-for-elixir/create-workflow.mp4"
       type="video/mp4"
     />
   </video>
@@ -126,7 +126,7 @@ Formatting".
 <figure class="vid-figure">
   <video controls>
     <source
-      src="https://jclem.nyc3.cdn.digitaloceanspaces.com/2019-01-26-github-actions-for-elixir/get-deps.mp4"
+      src="https://assets.jclem.me/2019-01-26-github-actions-for-elixir/get-deps.mp4"
       type="video/mp4"
     />
   </video>
@@ -155,7 +155,7 @@ test`.
 <figure class="vid-figure">
   <video controls>
     <source
-      src="https://jclem.nyc3.cdn.digitaloceanspaces.com/2019-01-26-github-actions-for-elixir/test.mp4"
+      src="https://assets.jclem.me/2019-01-26-github-actions-for-elixir/test.mp4"
       type="video/mp4"
     />
   </video>
@@ -176,7 +176,7 @@ workflow, rather than waiting for dependencies to be fetched.
 <figure class="vid-figure">
   <video controls>
     <source
-      src="https://jclem.nyc3.cdn.digitaloceanspaces.com/2019-01-26-github-actions-for-elixir/format.mp4"
+      src="https://assets.jclem.me/2019-01-26-github-actions-for-elixir/format.mp4"
       type="video/mp4"
     />
   </video>
@@ -202,7 +202,7 @@ time a "push" event happens. If I open a pull request, for example, with
 improper code formatting, we will have a helpful notification in the pull
 request:
 
-![A screenshot of GitHub Actions checks showing a failed “mix format” check](https://jclem.nyc3.cdn.digitaloceanspaces.com/2019-01-26-github-actions-for-elixir/checks.png)
+![A screenshot of GitHub Actions checks showing a failed “mix format” check](https://assets.jclem.me/2019-01-26-github-actions-for-elixir/checks.png)
 
 If I click to view details of the failing format check, I'll be able to see the
 output of my action:
