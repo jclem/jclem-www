@@ -48,7 +48,7 @@ Recently, I was tinkering on a side-project where I wanted to build a sort of
 canvas of very large dimensions that I could zoom in on and pan around, similar
 to zooming and panning around in a map application.
 
-<iframe src="https://example-use-pan.vercel.app/#tracking" title="Final canvas demo" ></iframe>
+<iframe src="https://example-use-pan.jclem.me/#tracking" title="Final canvas demo" ></iframe>
 
 In this post, I'm going to detail how I built this in React and what challenges
 I had to overcome in doing so. The components I was building were only intended
@@ -194,7 +194,7 @@ export const UsePanExample = () => {
 };
 ```
 
-<iframe src="https://example-use-pan.vercel.app/#use-pan" title="Panning canvas demo" ></iframe>
+<iframe src="https://example-use-pan.jclem.me/#use-pan" title="Panning canvas demo" ></iframe>
 
 If you click on this example and drag around, you'll see a persistent measure of
 how far you've dragged both horizontally and vertically.
@@ -278,7 +278,7 @@ export const UseScaleExample = () => {
 };
 ```
 
-<iframe src="https://example-use-pan.vercel.app/#use-scale" title="Scaling canvas demo" ></iframe>
+<iframe src="https://example-use-pan.jclem.me/#use-scale" title="Scaling canvas demo" ></iframe>
 
 If you scroll up and down inside the example's bounding box, you should see the
 scale value update.
@@ -310,7 +310,7 @@ export const UsePanScaleExample = () => {
 };
 ```
 
-<iframe src="https://example-use-pan.vercel.app/#use-pan-scale" title="Panning and scaling canvas demo" ></iframe>
+<iframe src="https://example-use-pan.jclem.me/#use-pan-scale" title="Panning and scaling canvas demo" ></iframe>
 
 We're _on our way_, but not quite there! In this example, panning seems to work
 fine! The background position updates according to the reported `offset` from
@@ -372,7 +372,7 @@ export const BufferExample = () => {
 };
 ```
 
-<iframe src="https://example-use-pan.vercel.app/#buffer" title="Buffer canvas demo" ></iframe>
+<iframe src="https://example-use-pan.jclem.me/#buffer" title="Buffer canvas demo" ></iframe>
 
 In this example, we absolutely position the actual canvas background DOM node
 within the bounding element and use the calculated buffer values to set the
@@ -532,7 +532,7 @@ export const TrackingExample = () => {
 };
 ```
 
-<iframe src="https://example-use-pan.vercel.app/#tracking" title="Final canvas demo" ></iframe>
+<iframe src="https://example-use-pan.jclem.me/#tracking" title="Final canvas demo" ></iframe>
 
 In this example, notice that as you zoom in and out, the focal point always
 remains the mouse cursor, even if you pan and zoom simultaneously, or move the
