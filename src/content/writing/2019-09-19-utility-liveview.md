@@ -81,7 +81,7 @@ with.
 <figure class="vid-figure">
   <video controls>
     <source
-      src="https://jclem.nyc3.cdn.digitaloceanspaces.com/on-the-utility-of-phoenix-liveview/live-view.mp4"
+      src="https://assets.jclem.me/2019-09-19-utility-liveview/live-view.mp4"
       type="video/mp4"
     />
   </video>

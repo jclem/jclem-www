@@ -15,7 +15,7 @@ summary: >-
 <figure class="vid-figure">
   <video controls>
     <source
-      src="https://jclem.nyc3.cdn.digitaloceanspaces.com/2019-01-28-hey-siri-deploy-my-elixir-app/deploy-ping.mp4"
+      src="https://assets.jclem.me/2019-01-28-hey-siri-deploy-my-elixir-app/deploy-ping.mp4"
       type="video/mp4"
     />
   </video>
