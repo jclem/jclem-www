@@ -10,13 +10,10 @@ export default defineConfig({
     sitemap(),
     expressiveCode({
       plugins: [pluginCollapsibleSections()],
+      themes: ["light-plus", "dark-plus"],
       styleOverrides: {
         uiFontFamily: "Berkeley Mono, monospace",
         uiFontSize: "var(--text-xs-size)",
-        frames: {
-          editorActiveTabIndicatorTopColor: "var(--color-highlight)",
-          shadowColor: "transparent",
-        },
         borderRadius: 0,
       },
     }),
